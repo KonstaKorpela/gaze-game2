@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Gaze game</title>
+    <script  type="module" src="./src/app.mjs" charset="utf-8"></script>
+    <link rel="stylesheet" href="/src/main.css">
+  </head>
+
+  <body>
+
+    <div class="canvas-container">
+      <div class="velocity-controller">
+        <div class="removeVelocity">&minus;</div>
+        <div class="addVelocity">+</div>
+      </div>
+      <div>
+        Velocity: <span id="currentVelocity"></span>
+      </div>
+      <canvas id="webglCanvas" width="1280" height="720"></canvas>
+      <canvas id="cursorCanvas" width="1280" height="720"></canvas>
+      <div class="game-over-notification">
+        <h1>Game over</h1>
+        <h4>You got <span id="playerscore"></span> points</h4>
+        <p id='calibrate'></p>
+        <p>Click the screen to restart the game</p>
+      </div>
+    </div>
+    <div id="openModal">Säännöt</div>
+
+    <div id="modal">
+      <span class="close">&times;</span>
+      <div class="modal-content">
+        <h3>Säännöt</h3>
+        <p>Peli alkaa kun katsot vihreä reunaista ympyrää. </p>
+      </div>
+    </div>
+
+    <!-- <div class="scoreboard">
+      <div class="scoreboard-container">
+        <h3>Your score: <span id="score"></span></h3>
+      </div>
+    </div> -->
+  </body>
+</html>
