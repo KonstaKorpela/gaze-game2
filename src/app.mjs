@@ -51,6 +51,8 @@ function main() {
 }
 
 function startGame() {
+
+
   gameStarted = true;
   updateTargetTimer = setInterval(() => {
 
@@ -59,16 +61,16 @@ function startGame() {
     }
 
     if (target.v != 0) {
-      target.updateTarget(ctx, canvas, lastVelocity, canvasGazeX, canvasGazeY);
+      target.updateTarget(ctx, canvas, lastVelocity, canvasGazeX, canvasGazeY, cursorCanvas);
       score = Math.floor(score + (1 * target.v));
     }
   }, 30);
 
   if (gameStarted && !gameOver) {
+
     changeDirectionTimer = setInterval(() => {
-      // target.v = 0;
-      target.changeDirection(lastVelocity);
-      console.info('Direction changed');
+        target.changeDirection(lastVelocity);
+        console.info('Direction changed');
     }, 3000);
 
     if(target.r > 60){
@@ -80,13 +82,6 @@ function startGame() {
       }, 1000)
     }
   }
-
-
-  // checkIfInTargetTimer = setInterval(() => {
-  //   if (!isInTarget(canvasGazeX, canvasGazeY, target.x, target.y, target.r) && gameStarted && !gameOver) {
-  //     stopGame();
-  //   }
-  // }, 50);
 }
 
 function stopGame() {
@@ -170,14 +165,15 @@ function messageEvent(e) {
   cursorCtx.fill();
   cursorCtx.closePath();
 
-  if (isInTarget(canvasGazeX, canvasGazeY, target.x, target.y, target.r) && !gameStarted && !gameOver) {
+  
+
+  if(isInTarget(canvasGazeX, canvasGazeY, target.x, target.y, target.r) && !gameStarted && !gameOver) {
     startGame();
   }
 
   if (!isInTarget(canvasGazeX, canvasGazeY, target.x, target.y, target.r) && gameStarted && !gameOver) {
     stopGame();
   }
-
 }
 
 function isInTarget(x, y, cx, cy, r) {
@@ -203,4 +199,4 @@ window.addEventListener('message', messageEvent, false);
 
 document.addEventListener('DOMContentLoaded', main);
 
-//Onko laajennus, onko kirjautunut, onko laite kiinni, kysy kirjautumisessa saatu tokeni, lähetä tokeni veikolle jotenkin
+//Onko laajennus, onko kirjautunut, onko laite kiinni, kysy kirjautumisessa saatu tokeni, lähetä tokeni ja tulos veikolle jotenkin

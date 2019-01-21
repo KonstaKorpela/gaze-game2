@@ -9,8 +9,8 @@ class Target {
     this.dx = this.v * Math.cos(this.angle);
     this.dy = this.v * Math.sin(this.angle);
     this.distance = this.getRandomArbitrary(300, 600);
-    this.lineX = this.distance * Math.cos(this.angle) + this.x;
-    this.lineY = this.distance * Math.sin(this.angle) + this.y;
+    this.lineX = (100 * this.t) * Math.cos(this.angle) + this.x;
+    this.lineY = (100 * this.t) * Math.sin(this.angle) + this.y;
     this.color = this.getRandomColor();
     this.gameOver = false;
   }
@@ -41,13 +41,19 @@ class Target {
     ctx.fillStyle = 'darkblue';
     ctx.fill();
     ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 20, 0, 2 * Math.PI);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    ctx.closePath();
   }
 
-  updateTarget(ctx, canvas, lastVelocity, canvasX, canvasY) {
+  updateTarget(ctx, canvas, lastVelocity, canvasX, canvasY, cursorCanvas) {
 
-    if (!this.isInTarget(canvasX, canvasY, this.x, this.y, this.y) && !this.gameOver) {
-      this.gameOver = true;
-    }
+    this.checkIntersection(canvasX, canvasY);
+
+    // this.updateTargetPosition(Date.now()/100000, cursorCanvas.width, cursorCanvas.height);
 
     this.drawTarget(ctx, canvas);
 
@@ -93,6 +99,24 @@ class Target {
       dist = Math.sqrt(dx * dx + dy * dy);
     return dist < r;
   }
+
+  checkIntersection(canvasX, canvasY) {
+    if (!this.isInTarget(canvasX, canvasY, this.x, this.y, this.y) && !this.gameOver) {
+      this.gameOver = true;
+    }
+  }
+
+  // updateTargetPosition(t, w, h) {
+  //   const rx = 0.5 * w;
+  //   const ry = 0.5 * h;
+  //
+  //   const a = this.v * t;
+  //   const k1 = 2.7 + Math.cos(a);
+  //   const k2 = 5.8 + Math.cos(a + 2.7);
+  //
+  //   this.x = rx + (rx - this.r) * Math.cos(a * k1);
+  //   this.y = ry + (ry - this.r) * Math.sin(a * k2);
+  // }
 }
 
 export {
